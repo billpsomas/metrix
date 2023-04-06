@@ -11,7 +11,7 @@ Please download:
 
 - [CUB](https://data.caltech.edu/records/65de6-vp158/files/CUB_200_2011.tgz?download=1)
 - Cars [images](http://ai.stanford.edu/~jkrause/car196/car_ims.tgz), [annotations](http://ai.stanford.edu/~jkrause/car196/cars_annos.mat)
-- [SOP](ftp://cs.stanford.edu/cs/cvgl/Stanford_Online_Products.zip)
+- [SOP](https://cvgl.stanford.edu/projects/lifted_struct/)
 - [InShop](https://drive.google.com/drive/folders/0B7EVK8r0v71pVDZFQXRsMDZCX1E?resourcekey=0-4R4v6zl4CWhHTsUGOsTstw&usp=share_link)
 
 Extract the .tgz or .zip file into the same folder, e.g. `./datasets/`. You should have a folder structure like this:
