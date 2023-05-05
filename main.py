@@ -20,12 +20,12 @@ import tqdm
 from tqdm import *
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser = argparse.ArgumentParser(description='Metrix: Mixup for Deep Metric Learning. ICLR 2022 paper.')
     parser.add_argument('--seed', type=int, default =1, help='Choose seed')
     parser.add_argument('--dataset', type=str, default='cub', choices=['cub', 'cars', 'sop', 'inshop'], help='Dataset to use for training')
     parser.add_argument('--data_root', type=str, default='/path/to/datasets/', help='Root directory of your datasets')
-    parser.add_argument('--model', type=str, default='resnet50', help='Model architecture to train')
-    parser.add_argument('--batch_size', type=int, default=32, help='Batch size')
+    parser.add_argument('--model', type=str, default='resnet50', help='Model architecture to train. ResNet-50 is currently available.')
+    parser.add_argument('--batch_size', type=int, default=32, help='Batch size for training')
     parser.add_argument('--num_workers', type=int, default=4, help='Number of workers to use for training')
     parser.add_argument('--embedding_size', type=int, default=128, help='Embedding size')
     parser.add_argument('--bn_freeze', type=int, default=1, help='Whether to freeze batch normalization or not')
@@ -35,13 +35,13 @@ if __name__ == '__main__':
     parser.add_argument('--warm', type=int, default=5, help='Number of epochs to warm-up for')
     parser.add_argument('--lr_decay_step', type=int, default=10, help='Learning rate decay step')
     parser.add_argument('--lr_decay_gamma', type=float, default=0.1, help='Learning rate decay gamma')
-    parser.add_argument('--save_root', type=str, default='/path/to/output/', help='Root directory of your datasets')
+    parser.add_argument('--save_root', type=str, default='/path/to/output/', help='Directory to save the output')
     parser.add_argument('--lr', type=float, default=1e-4, help='Learning rate')
     parser.add_argument('--weight_decay', type=float, default=1e-4, help='Weight decay')
-    parser.add_argument('--loss', type=str, default='contrastive', choices=['contrastive', 'multisimilarity', 'proxyanchor'], help='Loss function')
+    parser.add_argument('--loss', type=str, default='contrastive', choices=['contrastive', 'multisimilarity', 'proxyanchor'], help='Loss function to use for training')
     parser.add_argument('--images_per_class', type=int, default=5, help='Images per class for balanced sampling')
     parser.add_argument('--save_model', default=False, type=bool_flag, help="Whether to save model weights to file or not")
-    parser.add_argument('--mode', type=str, default='feature', choices=['baseline', 'input', 'feature', 'embed'] , help="Choose between baseline or metrix")
+    parser.add_argument('--mode', type=str, default='feature', choices=['baseline', 'input', 'feature', 'embed'] , help="Choose between baseline, Metrix/input, Metrix/feature or Metrix/embed.")
     parser.add_argument('--alpha', type=float, default=2.0, help="Beta distribution alpha")
     args = parser.parse_args()
 

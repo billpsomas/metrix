@@ -28,7 +28,7 @@ Extract the .tgz or .zip file into the same folder, e.g. `./datasets/`. You shou
 Please install [PyTorch](https://pytorch.org/). The experiments have been performed with Python version 3.7.6, PyTorch version 1.7.0, CUDA 10.1 and torchvision 0.8.1.
 
 The requirements are easily installed via
-[Anaconda](https://www.anaconda.com/distribution/#download-section):
+[Anaconda](https://www.anaconda.com/distribution/#download-section). Here we create a conda environment called `metrix` and install all the necessary libraries: 
 
 ```bash 
 conda create -n metrix python=3.7.6
@@ -40,33 +40,42 @@ pip install timm==0.4.12 tensorboardx==2.5.1 scikit-learn==0.23.2 munkres==1.1.4
 ---
 
 ### Baseline Contrastive
-Train baseline Contrastive with ResNet-50 for 100 epochs on CUB dataset:
+Train baseline Contrastive with ResNet-50 and an embedding size of 128 for 60 epochs on CUB dataset:
 
 ```bash
 python3 main.py --dataset cub --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 128 --num_epochs 60 --lr 1e-4 --lr_decay_gamma 0.1 --loss contrastive --mode baseline --alpha 2.0 --save_model True
 ```
 
-Train baseline Contrastive with ResNet-50 for 100 epochs on Cars dataset:
+Train baseline Contrastive with ResNet-50 and an embedding size of 128 for 60 epochs on Cars dataset:
 
 ```bash
 python3 main.py --dataset cars --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 128 --num_epochs 60 --lr 1e-4 --lr_decay_gamma 0.1 --loss contrastive --mode baseline --alpha 2.0 --save_model True
 ```
 
-Train baseline Contrastive with ResNet-50 for 100 epochs on SOP dataset:
+Train baseline Contrastive with ResNet-50 and an embedding size of 128 for 60 epochs on SOP dataset:
 
 ```bash
 python3 main.py --dataset sop --batch_size 100 --num_workers 4 --embedding_size 128 --num_epochs 60 --lr 3e-5 --lr_decay_gamma 0.25 --bn_freeze 0 --loss contrastive --images_per_class 5 --mode baseline --alpha 2.0 --save_model True
 ```
 
-Train baseline Contrastive with ResNet-50 for 100 epochs on InShop dataset:
+Train baseline Contrastive with ResNet-50 and an embedding size of 128 for 60 epochs on InShop dataset:
 
 ```bash
 python3 main.py --dataset sop --batch_size 100 --num_workers 4 --embedding_size 128 --num_epochs 60 --lr 3e-5 --lr_decay_step 5 --lr_decay_gamma 0.25 --warm 1 --bn_freeze 0 --loss contrastive --images_per_class 5 --mode baseline --alpha 2.0 --save_model True
 ```
 
+Note that the argument `--mode` has been set to `baseline` here, as we are running the baseline contrastive experiments.
+
+---
+
+### NOTE
+Metrix, our Mixup for Deep Metric Learning method, can be performed on input, feature or embedding space. In our paper, we show that the Metrix on feature space performs the best. For simplification we call this `Metrix`. Metrix on input space is called `Metrix/input`, while Metrix on embedding space is called `Metrix/embed`. In general, `Metrix/input` is not computationally efficient (because the mixup takes place between images), while `Metrix/embed` is very efficient (because the mixup takes place between low dimensional vectors).
+
 ---
 
 ### Contrastive + Metrix
+
+
 Train Contrastive + Metrix with ResNet-50 for 100 epochs on CUB dataset:
 
 ```bash
