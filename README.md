@@ -3,7 +3,7 @@
 This repo contains the official PyTorch implementation and pretrained models of our ICLR 2022 paper  - **It Takes Two to Tango: Mixup for Deep Metric Learning**. [[`arXiv`](https://arxiv.org/abs/2106.04990)] [[`OpenReview`](https://openreview.net/forum?id=ZKy2X3dgPA)] [[`video`](https://iclr.cc/virtual/2022/poster/6337)] [[`slides`](.github/slides.pdf)] [[`poster`](.github/poster.pdf)]
 
 <div align="center">
-  <img width="100%" alt="Metrix illustration" src=".github/metrix.png">
+  <img width="80%" alt="Metrix illustration" src=".github/metrix.png">
 </div>
 
 ## Datasets
