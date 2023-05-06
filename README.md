@@ -69,12 +69,15 @@ Note that the argument `--mode` has been set to `baseline` here, as we are runni
 ---
 
 ### NOTE
-Metrix, our Mixup for Deep Metric Learning method, can be performed on input, feature or embedding space. In our paper, we show that the Metrix on feature space performs the best. For simplification we call this `Metrix`. Metrix on input space is called `Metrix/input`, while Metrix on embedding space is called `Metrix/embed`. In general, `Metrix/input` is not computationally efficient (because the mixup takes place between images), while `Metrix/embed` is very efficient (because the mixup takes place between low dimensional vectors).
+`Metrix`, our Mixup for Deep Metric Learning method, can be performed on `input`, `feature` or `embedding` space. In our paper, we show that Metrix on feature space performs the best. For simplification we call this `Metrix` instead of `Metrix/feature`. Metrix on input space is called `Metrix/input`, while Metrix on embedding space is called `Metrix/embed`. In general, `Metrix/input` is not computationally efficient (because the mixup takes place between images), while `Metrix/embed` is very efficient (because the mixup takes place between low-dimensional vectors).
+
+<div align="center">
+  <img width="80%" alt="Metrix illustration" src=".github/mode.png">
+</div>
 
 ---
 
 ### Contrastive + Metrix
-
 
 Train Contrastive + Metrix with ResNet-50 for 100 epochs on CUB dataset:
 
@@ -101,6 +104,96 @@ python3 main.py --dataset inshop --data_root /path/to/datasets/ --save_root /pat
 ```
 
 > For the **Contrastive + Metrix/input** or **Contrastive + Metrix/embed**, modify `--mode input` or `--mode embed` respectively.
+
+<table>
+  <thead>
+    <tr>
+      <th rowspan="2">Method</th>
+      <th colspan="3" style="text-align:center;">CUB200</th>
+      <th colspan="3" style="text-align:center;">CARS196</th>
+      <th colspan="3" style="text-align:center;">SOP</th>
+      <th colspan="3" style="text-align:center;">IN-SHOP</th>
+    </tr>
+    <tr>
+      <th>R@1</th>
+      <th>R@2</th>
+      <th>R@4</th>
+      <th>R@1</th>
+      <th>R@2</th>
+      <th>R@4</th>
+      <th>R@1</th>
+      <th>R@10</th>
+      <th>R@100</th>
+      <th>R@1</th>
+      <th>R@10</th>
+      <th>R@20</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Baseline Contrastive</td>
+      <td>64.7</td>
+      <td>75.9</td>
+      <td>84.6</td>
+      <td>81.6</td>
+      <td>88.2</td>
+      <td>92.7</td>
+      <td>74.9</td>
+      <td>87.0</td>
+      <td>93.9</td>
+      <td>86.4</td>
+      <td>94.7</td>
+      <td>96.2</td>
+    </tr>
+    <tr>
+      <td>Contrastive + Metrix</td>
+      <td>67.4</td>
+      <td>77.9</td>
+      <td>85.7</td>
+      <td>85.1</td>
+      <td>91.1</td>
+      <td>94.6</td>
+      <td>77.5</td>
+      <td>89.1</td>
+      <td>95.5</td>
+      <td>89.1</td>
+      <td>95.7</td>
+      <td>97.1</td>
+    </tr>
+    <tr>
+      <td>Contrastive + Metrix/input</td>
+      <td>66.3</td>
+      <td>77.1</td>
+      <td>85.2</td>
+      <td>82.9</td>
+      <td>89.3</td>
+      <td>93.7</td>
+      <td>75.8</td>
+      <td>87.8</td>
+      <td>94.6</td>
+      <td>87.7</td>
+      <td>95.9</td>
+      <td>96.5</td>
+    </tr>
+    <tr>
+      <td>Contrastive + Metrix/embed</td>
+      <td>66.4</td>
+      <td>77.6</td>
+      <td>85.4</td>
+      <td>83.9</td>
+      <td>90.3</td>
+      <td>94.1</td>
+      <td>76.7</td>
+      <td>88.6</td>
+      <td>95.2</td>
+      <td>88.4</td>
+      <td>95.4</td>
+      <td>95.8</td>
+    </tr>
+  </tbody>
+</table>
+
+
 
 ---
 
