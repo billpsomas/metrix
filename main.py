@@ -249,6 +249,11 @@ if __name__ == '__main__':
             elif args.loss == 'multisimilarity':
                 if args.mode == 'baseline':
                     loss, losses_per_epoch = baseline_multisimilarity(inputs, target, model, distance, miner, alpha, beta, base, opt, losses_per_epoch)
+                elif args.mode == 'input':
+                    print('We are sorry, MultiSimilarity + Metrix/input has not been uploaded yet.')
+                    break
+                elif args.mode == 'embed':
+                    loss, losses_per_epoch = embed_metrix_multisimilarity(inputs, target, model, distance, miner, alpha, beta, base, opt, losses_per_epoch)
             elif args.loss == 'proxyanchor':
                 if args.mode == 'baseline':
                     loss, losses_per_epoch = baseline_proxyanchor(inputs, target, model, criterion, opt, losses_per_epoch)
@@ -294,6 +299,6 @@ if __name__ == '__main__':
                     }
 
                 if args.save_model:
-                    torch.save(state, os.path.join(save_dir, '{}_{}.t7'.format(args.loss, args.model)))
+                    torch.save(state, os.path.join(save_dir, '{}_{}_{}.pth'.format(args.loss, args.mode, args.model)))
     
     print(best_recall)

@@ -34,7 +34,7 @@ The requirements are easily installed via
 conda create -n metrix python=3.7.6
 conda activate metrix
 conda install pytorch==1.7.0 torchvision==0.8.1 cudatoolkit=10.1 pillow==8.0.1 -c pytorch
-pip install timm==0.4.12 tensorboardx==2.5.1 scikit-learn==0.23.2 munkres==1.1.4 tqdm
+pip install scikit-learn==0.23.2 munkres==1.1.4 tqdm==4.62.3 scipy==1.7.3 pytorch_metric_learning==1.3.0
 ```
 
 ---

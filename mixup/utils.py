@@ -72,7 +72,11 @@ def input_neg_pair_mixup_without_posanchor(a1, a2, neg, clean_embedding, images,
 		a2 = torch.cat([a2[0:idxs[0]], a2[idxs[-1]+1:]])
 		neg = torch.cat([neg[0:idxs[0]], neg[idxs[-1]+1:]])
 	
-	del anchor_pos
+	try:
+		del anchor_pos
+	except UnboundLocalError:
+		pass
+	
 	anch_neg, hard_neg = [],[]
 	for anchor in np.unique(a2.cpu().numpy()):
 		idxs = torch.where(anchor == a2)[0]
@@ -101,7 +105,7 @@ def input_neg_pair_mixup_without_posanchor(a1, a2, neg, clean_embedding, images,
 	return similarity_mixed, target_pos, target_neg, torch.from_numpy(np.array(a2_new)), torch.from_numpy(np.array(neg_new)), lam
 
 
-def embed_posneg_pair_mixup_for_pos_anchor(a1, pos, a2, neg, embedding, images, target, sim_mat):
+def embed_posneg_pair_mixup_for_pos_anchor(a1, pos, a2, neg, embedding, target, sim_mat):
 	new_anc, new_neg, new_pos = [],[],[]
 	for anchor_pos in a1:
 
@@ -131,14 +135,18 @@ def embed_posneg_pair_mixup_for_pos_anchor(a1, pos, a2, neg, embedding, images, 
 	return similarity_mixed, target_pos, target_neg, torch.from_numpy(np.array(a2)), torch.from_numpy(np.array(pos)), torch.from_numpy(np.array(neg)), lam
 
 
-def embed_neg_pair_mixup_without_posanchor(a1, a2, neg, embedding, images, target, sim_mat):
+def embed_neg_pair_mixup_without_posanchor(a1, a2, neg, embedding, target, sim_mat):
 
 	for anchor_pos in np.unique(a1.cpu().numpy()):
 		idxs = torch.where(anchor_pos == a2)[0]
 		a2 = torch.cat([a2[0:idxs[0]], a2[idxs[-1]+1:]])
 		neg = torch.cat([neg[0:idxs[0]], neg[idxs[-1]+1:]])
 		
-	del anchor_pos
+	try:
+		del anchor_pos
+	except UnboundLocalError:
+		pass
+
 	new_anc, new_neg = [],[]
 	for anchor in np.unique(a2.cpu().numpy()):
 		idxs = torch.where(anchor == a2)[0]
@@ -185,8 +193,12 @@ def feature_neg_pair_mixup_without_posanchor(a1, a2, neg):
 		idxs = torch.where(anchor_pos == a2)[0]
 		a2 = torch.cat([a2[0:idxs[0]], a2[idxs[-1]+1:]])
 		neg = torch.cat([neg[0:idxs[0]], neg[idxs[-1]+1:]])
-		
-	del anchor_pos
+	
+	try:
+		del anchor_pos
+	except UnboundLocalError:
+		pass
+
 	new_anc, new_neg = [],[]
 	for anchor in np.unique(a2.cpu().numpy()):
 		idxs = torch.where(anchor == a2)[0]

@@ -97,13 +97,13 @@ def embed_metrix_contrastive(inputs, target, model, distance, criterion, opt, lo
     a1, pos, a2, neg = lmu.get_all_pairs_indices(target)
     
     if (layer_mix == 0):
-        sim_mix, y_pos, y_neg, new_a2, new_pos, new_neg, lam_pn = embed_posneg_pair_mixup_for_pos_anchor(a1, pos, a2, neg, out_clean, inputs, target, distance)
+        sim_mix, y_pos, y_neg, new_a2, new_pos, new_neg, lam_pn = embed_posneg_pair_mixup_for_pos_anchor(a1, pos, a2, neg, out_clean, target, distance)
         loss_pos_dict, loss_neg_dict = loss_posneg_mixup(sim_mix, new_pos, new_a2, new_neg, lam_pn)
         loss_mixed_posneg_for_pos_anc = reducer_pos(loss_pos_dict, sim_mix, y_pos) + reducer_neg(loss_neg_dict, sim_mix, y_neg)
         loss = loss_clean + 0.4*loss_mixed_posneg_for_pos_anc 
 
     elif (layer_mix == 1):
-        sim_mix_ancneg, y_pos_an, y_neg_an, new_a2_an, new_neg_an, lam_an = embed_neg_pair_mixup_without_posanchor(a1, a2, neg, out_clean, inputs, target, distance)
+        sim_mix_ancneg, y_pos_an, y_neg_an, new_a2_an, new_neg_an, lam_an = embed_neg_pair_mixup_without_posanchor(a1, a2, neg, out_clean, target, distance)
         loss_dict_pos_ancneg, loss_dict_neg_ancneg = loss_posneg_mixup(sim_mix_ancneg, new_a2_an, new_a2_an, new_neg_an, lam_an)
         loss_mixed_ancneg_without_pos_anc = reducer_pos(loss_dict_pos_ancneg, sim_mix_ancneg, y_pos_an) + reducer_neg(loss_dict_neg_ancneg, sim_mix_ancneg, y_neg_an)
         loss = loss_clean + 0.3*loss_mixed_ancneg_without_pos_anc
@@ -198,6 +198,28 @@ def baseline_multisimilarity(inputs, target, model, distance, miner, alpha, beta
 
     return loss, losses_per_epoch
 
+def embed_metrix_multisimilarity(inputs, target, model, distance, miner, alpha, beta, base, opt, losses_per_epoch):
+    
+    out_clean = model(inputs)
+    a1, p, a2, n = miner(out_clean, target)
+
+    sim_mix, _, _, a2_pn, pos_pn, neg_pn, lam_pn = embed_posneg_pair_mixup_for_pos_anchor(a1, p, a2, n, out_clean, target, distance)
+
+    pos_loss = multisimilarity_positive_loss(sim_mix, alpha, base, a1, p, distance, out_clean, a2_pn, pos_pn, lam_pn)
+
+    neg_loss = multisimilarity_negative_loss(sim_mix, beta, base, a2, n, distance, out_clean, a2_pn, neg_pn, lam_pn)
+
+    loss = torch.mean(pos_loss + neg_loss)
+
+    opt.zero_grad()
+    loss.backward()
+
+    torch.nn.utils.clip_grad_value_(model.parameters(), 10)
+
+    losses_per_epoch.append(loss.data.cpu().numpy())
+    opt.step()
+
+    return loss, losses_per_epoch
 
 def baseline_proxyanchor(inputs, target, model, criterion, opt, losses_per_epoch):
     out = model(inputs)
