@@ -40,28 +40,28 @@ pip install timm==0.4.12 tensorboardx==2.5.1 scikit-learn==0.23.2 munkres==1.1.4
 ---
 
 ### Baseline Contrastive
-Train baseline Contrastive with ResNet-50 and an embedding size of 128 for 60 epochs on CUB dataset:
+Train baseline Contrastive with ResNet-50 and an embedding size of 512 for 60 epochs on CUB dataset:
 
 ```bash
-python3 main.py --dataset cub --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 128 --num_epochs 60 --lr 1e-4 --lr_decay_gamma 0.1 --loss contrastive --mode baseline --alpha 2.0 --save_model True
+python3 main.py --dataset cub --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 512 --num_epochs 60 --lr 1e-4 --lr_decay_gamma 0.1 --loss contrastive --mode baseline --alpha 2.0 --save_model True
 ```
 
-Train baseline Contrastive with ResNet-50 and an embedding size of 128 for 60 epochs on Cars dataset:
+Train baseline Contrastive with ResNet-50 and an embedding size of 512 for 60 epochs on Cars dataset:
 
 ```bash
-python3 main.py --dataset cars --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 128 --num_epochs 60 --lr 1e-4 --lr_decay_gamma 0.1 --loss contrastive --mode baseline --alpha 2.0 --save_model True
+python3 main.py --dataset cars --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 512 --num_epochs 60 --lr 1e-4 --lr_decay_gamma 0.1 --loss contrastive --mode baseline --alpha 2.0 --save_model True
 ```
 
-Train baseline Contrastive with ResNet-50 and an embedding size of 128 for 60 epochs on SOP dataset:
+Train baseline Contrastive with ResNet-50 and an embedding size of 512 for 60 epochs on SOP dataset:
 
 ```bash
-python3 main.py --dataset sop --batch_size 100 --num_workers 4 --embedding_size 128 --num_epochs 60 --lr 3e-5 --lr_decay_gamma 0.25 --bn_freeze 0 --loss contrastive --images_per_class 5 --mode baseline --alpha 2.0 --save_model True
+python3 main.py --dataset sop --batch_size 100 --num_workers 4 --embedding_size 512 --num_epochs 60 --lr 3e-5 --lr_decay_gamma 0.25 --bn_freeze 0 --loss contrastive --images_per_class 5 --mode baseline --alpha 2.0 --save_model True
 ```
 
-Train baseline Contrastive with ResNet-50 and an embedding size of 128 for 60 epochs on InShop dataset:
+Train baseline Contrastive with ResNet-50 and an embedding size of 512 for 60 epochs on InShop dataset:
 
 ```bash
-python3 main.py --dataset sop --batch_size 100 --num_workers 4 --embedding_size 128 --num_epochs 60 --lr 3e-5 --lr_decay_step 5 --lr_decay_gamma 0.25 --warm 1 --bn_freeze 0 --loss contrastive --images_per_class 5 --mode baseline --alpha 2.0 --save_model True
+python3 main.py --dataset sop --batch_size 100 --num_workers 4 --embedding_size 512 --num_epochs 60 --lr 3e-5 --lr_decay_step 5 --lr_decay_gamma 0.25 --warm 1 --bn_freeze 0 --loss contrastive --images_per_class 5 --mode baseline --alpha 2.0 --save_model True
 ```
 
 Note that the argument `--mode` has been set to `baseline` here, as we are running the baseline contrastive experiments.
@@ -78,32 +78,33 @@ Note that the argument `--mode` has been set to `baseline` here, as we are runni
 ---
 
 ### Contrastive + Metrix
-
-Train Contrastive + Metrix with ResNet-50 for 100 epochs on CUB dataset:
+Train Contrastive + Metrix with ResNet-50 and an embedding size of 512 for 60 epochs on CUB dataset:
 
 ```bash
-python3 main.py --dataset cub --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 128 --num_epochs 100 --lr 1e-4 --lr_decay_gamma 0.1 --loss contrastive --mode feature --alpha 2.0 --save_model True
+python3 main.py --dataset cub --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 512 --num_epochs 60 --lr 1e-4 --lr_decay_gamma 0.1 --loss contrastive --mode feature --alpha 2.0 --save_model True
 ```
 
-Train Contrastive + Metrix with ResNet-50 for 100 epochs on Cars dataset:
+Train Contrastive + Metrix with ResNet-50 and an embedding size of 512 for 60 epochs on Cars dataset:
 
 ```bash
-python3 main.py --dataset cars --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 128 --num_epochs 100 --lr 1e-4 --lr_decay_gamma 0.1 --loss contrastive --mode feature --alpha 2.0 --save_model
+python3 main.py --dataset cars --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 512 --num_epochs 60 --lr 1e-4 --lr_decay_gamma 0.1 --loss contrastive --mode feature --alpha 2.0 --save_model
 ```
 
-Train Contrastive + Metrix with ResNet-50 for 100 epochs on SOP dataset:
+Train Contrastive + Metrix with ResNet-50 and an embedding size of 512 for 60 epochs on SOP dataset:
 
 ```bash
-python3 main.py --dataset sop --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 128 --num_epochs 100 --lr 3e-5 --lr_decay_gamma 0.25 --loss contrastive --images_per_class 5 --mode feature --alpha 2.0 --save_model
+python3 main.py --dataset sop --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 512 --num_epochs 60 --lr 3e-5 --lr_decay_gamma 0.25 --loss contrastive --images_per_class 5 --mode feature --alpha 2.0 --save_model
 ```
 
-Train Contrastive + Metrix with ResNet-50 for 100 epochs on InShop dataset:
+Train Contrastive + Metrix with ResNet-50 and an embedding size of 512 for 60 epochs on InShop dataset:
 
 ```bash
-python3 main.py --dataset inshop --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 128 --num_epochs 100 --lr 1e-4 --lr_decay_gamma 0.25 --loss contrastive --images_per_class 5 --mode feature --alpha 2.0 --save_model
+python3 main.py --dataset inshop --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 512 --num_epochs 60 --lr 1e-4 --lr_decay_gamma 0.25 --loss contrastive --images_per_class 5 --mode feature --alpha 2.0 --save_model
 ```
 
 > For the **Contrastive + Metrix/input** or **Contrastive + Metrix/embed**, modify `--mode input` or `--mode embed` respectively.
+
+Below we present the expected results per method and dataset:
 
 <table>
   <thead>
@@ -194,17 +195,159 @@ python3 main.py --dataset inshop --data_root /path/to/datasets/ --save_root /pat
 </table>
 
 
-
 ---
-
-### MultiSimilarity + Metrix
-Train MultiSimilarity + Metrix with ResNet-50 for 100 epochs on CUB dataset:
+### Baseline MultiSimilarity
+Train baseline MultiSimilarity with ResNet-50 and an embedding size of 512 for 60 epochs on CUB dataset:
 
 ```bash
-python3 main.py --dataset cub --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 128 --num_epochs 100 --lr 1e-4 --lr_decay_gamma 0.5 --loss multisimilarity --mode feature --alpha 2.0 --save_model
+python3 main.py --dataset cub --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 512 --num_epochs 60 --lr 1e-4 --lr_decay_step 5 --lr_decay_gamma 0.5 --loss multisimilarity --mode baseline --alpha 2.0 --save_model
+```
+
+Train baseline MultiSimilarity with ResNet-50 and an embedding size of 512 for 60 epochs on Cars dataset:
+
+```bash
+python3 main.py --dataset cars --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 512 --num_epochs 60 --lr 1e-4 --lr_decay_step 5 --lr_decay_gamma 0.5 --loss multisimilarity --mode baseline --alpha 2.0 --save_model
+```
+
+Train baseline MultiSimilarity with ResNet-50 and an embedding size of 512 for 60 epochs on SOP dataset:
+
+```bash
+python3 main.py --dataset sop --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 512 --num_epochs 60 --lr 6e-4 --lr_decay_step 20 --lr_decay_gamma 0.25 --warm 1 --images_per_class 5 --bn_freeze 0 --loss multisimilarity --mode baseline --alpha 2.0 --save_model
+```
+
+Train baseline MultiSimilarity with ResNet-50 and an embedding size of 512 for 60 epochs on InShop dataset:
+
+```bash
+python3 main.py --dataset inshop --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 512 --num_epochs 60 --lr 6e-4 --lr_decay_step 20 --lr_decay_gamma 0.25 --warm 1 --images_per_class 5 --bn_freeze 0 --loss multisimilarity --mode baseline --alpha 2.0 --save_model
+```
+
+---
+### MultiSimilarity + Metrix
+Train MultiSimilarity + Metrix with ResNet-50 and an embedding size of 512 for 60 epochs on CUB dataset:
+
+```bash
+python3 main.py --dataset cub --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 512 --num_epochs 100 --lr 1e-4 --lr_decay_gamma 0.5 --loss multisimilarity --mode feature --alpha 2.0 --save_model
 ```
 
 > For the **MultiSimilarity + Metrix/input** or **MultiSimilarity + Metrix/embed**, modify `--mode input` or `--mode embed` respectively.
+
+> For Cars, SOP or InShop datasets, modify `--dataset cars` ,`--dataset sop` or `--dataset inshop` respectively, using the same hyperparameters as in the respective baseline experiment.
+
+Below we present the expected results per method and dataset:
+
+<table>
+  <thead>
+    <tr>
+      <th rowspan="2">Method</th>
+      <th colspan="3" style="text-align:center;">CUB200</th>
+      <th colspan="3" style="text-align:center;">CARS196</th>
+      <th colspan="3" style="text-align:center;">SOP</th>
+      <th colspan="3" style="text-align:center;">IN-SHOP</th>
+    </tr>
+    <tr>
+      <th>R@1</th>
+      <th>R@2</th>
+      <th>R@4</th>
+      <th>R@1</th>
+      <th>R@2</th>
+      <th>R@4</th>
+      <th>R@1</th>
+      <th>R@10</th>
+      <th>R@100</th>
+      <th>R@1</th>
+      <th>R@10</th>
+      <th>R@20</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Baseline MultiSimilarity</td>
+      <td>67.8</td>
+      <td>77.8</td>
+      <td>85.6</td>
+      <td>87.8</td>
+      <td>92.7</td>
+      <td>95.3</td>
+      <td>76.9</td>
+      <td>89.8</td>
+      <td>95.9</td>
+      <td>90.1</td>
+      <td>97.6</td>
+      <td>98.4</td>
+    </tr>
+    <tr>
+      <td>MultiSimilarity + Metrix</td>
+      <td>71.4</td>
+      <td>80.6</td>
+      <td>86.8</td>
+      <td>89.6</td>
+      <td>94.2</td>
+      <td>96.0</td>
+      <td>81.0</td>
+      <td>92.0</td>
+      <td>97.2</td>
+      <td>92.2</td>
+      <td>98.5</td>
+      <td>98.6</td>
+    </tr>
+    <tr>
+      <td>MultiSimilarity + Metrix/input</td>
+      <td>69.0</td>
+      <td>79.1</td>
+      <td>86.0</td>
+      <td>89.0</td> 
+      <td>93.4</td>
+      <td>96.0</td>
+      <td>77.9</td>
+      <td>90.6</td>
+      <td>95.9</td>
+      <td>91.8</td>
+      <td>98.0</td>
+      <td>98.9</td>
+    </tr>
+    <tr>
+      <td>MultiSimilarity + Metrix/embed</td>
+      <td>70.2</td>
+      <td>80.4</td>
+      <td>86.7</td>
+      <td>88.8</td>
+      <td>92.9</td>
+      <td>95.6</td>
+      <td>78.5</td>
+      <td>91.3</td>
+      <td>96.7</td>
+      <td>91.9</td>
+      <td>98.3</td>
+      <td>98.7</td> 
+    </tr>
+  </tbody>
+</table>
+
+---
+### Baseline ProxyAnchor
+Train baseline ProxyAnchor with ResNet-50 and an embedding size of 512 for 60 epochs on CUB dataset:
+
+```bash
+python3 main.py --dataset cub --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 512 --num_epochs 60 --lr 1e-4 --lr_decay_step 5 --lr_decay_gamma 0.5 --loss proxyanchor --mode baseline --alpha 2.0 --save_model
+```
+
+Train baseline ProxyAnchor with ResNet-50 and an embedding size of 512 for 60 epochs on Cars dataset:
+
+```bash
+python3 main.py --dataset cars --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 512 --num_epochs 60 --lr 1e-4 --lr_decay_step 5 --lr_decay_gamma 0.5 --loss proxyanchor --mode baseline --alpha 2.0 --save_model
+```
+
+Train baseline ProxyAnchor with ResNet-50 and an embedding size of 512 for 60 epochs on SOP dataset:
+
+```bash
+python3 main.py --dataset sop --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 512 --num_epochs 60 --lr 6e-4 --lr_decay_step 20 --lr_decay_gamma 0.25 --warm 1 --images_per_class 5 --bn_freeze 0 --loss proxyanchor --mode baseline --alpha 2.0 --save_model
+```
+
+Train baseline ProxyAnchor with ResNet-50 and an embedding size of 512 for 60 epochs on InShop dataset:
+
+```bash
+python3 main.py --dataset inshop --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 512 --num_epochs 60 --lr 6e-4 --lr_decay_step 20 --lr_decay_gamma 0.25 --warm 1 --images_per_class 5 --bn_freeze 0 --loss proxyanchor --mode baseline --alpha 2.0 --save_model
+```
 
 ---
 
@@ -212,12 +355,114 @@ python3 main.py --dataset cub --data_root /path/to/datasets/ --save_root /path/t
 Train Contrastive + Metrix with ResNet-50 for 100 epochs on CUB dataset:
 
 ```bash
-python3 main.py --dataset cub --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 128 --num_epochs 100 --lr 1e-4 --lr_decay_gamma 0.5 --loss proxyanchor --mode feature --alpha 2.0 --save_model
+python3 main.py --dataset cub --data_root /path/to/datasets/ --save_root /path/to/output/ --batch_size 100 --num_workers 4 --embedding_size 512 --num_epochs 100 --lr 1e-4 --lr_decay_gamma 0.5 --loss proxyanchor --mode feature --alpha 2.0 --save_model
 ```
 
 > For the **ProxyAnchor + Metrix/input** or **ProxyAnchor + Metrix/embed**, modify `--mode input` or `--mode embed` respectively.
 
+> For Cars, SOP or InShop datasets, modify `--dataset cars` ,`--dataset sop` or `--dataset inshop` respectively, using the same hyperparameters as in the respective baseline experiment.
+
+Below we present the expected results per method and dataset:
+
+<table>
+  <thead>
+    <tr>
+      <th rowspan="2">Method</th>
+      <th colspan="3" style="text-align:center;">CUB200</th>
+      <th colspan="3" style="text-align:center;">CARS196</th>
+      <th colspan="3" style="text-align:center;">SOP</th>
+      <th colspan="3" style="text-align:center;">IN-SHOP</th>
+    </tr>
+    <tr>
+      <th>R@1</th>
+      <th>R@2</th>
+      <th>R@4</th>
+      <th>R@1</th>
+      <th>R@2</th>
+      <th>R@4</th>
+      <th>R@1</th>
+      <th>R@10</th>
+      <th>R@100</th>
+      <th>R@1</th>
+      <th>R@10</th>
+      <th>R@20</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Baseline ProxyAnchor</td>
+      <td>69.5</td>
+      <td>79.3</td>
+      <td>87.0</td>
+      <td>87.6</td>
+      <td>92.3</td>
+      <td>95.5</td>
+      <td>79.1</td>
+      <td>90.8</td>
+      <td>96.2</td>
+      <td>90.0</td>
+      <td>97.4</td>
+      <td>98.2</td>
+    </tr>
+    <tr>
+      <td>ProxyAnchor + Metrix</td>
+      <td>71.0</td>
+      <td>81.8</td>
+      <td>88.2</td>
+      <td>89.1</td>
+      <td>93.6</td>
+      <td>96.7</td>
+      <td>81.3</td>
+      <td>91.7</td>
+      <td>96.9</td>
+      <td>91.9</td>
+      <td>98.2</td>
+      <td>98.8</td>
+    </tr>
+    <tr>
+      <td>ProxyAnchor + Metrix/input</td>
+      <td>70.5</td>
+      <td>81.2</td>
+      <td>87.8</td>
+      <td>88.2</td> 
+      <td>93.2</td>
+      <td>96.2</td>
+      <td>79.8</td>
+      <td>91.4</td>
+      <td>96.5</td>
+      <td>90.9</td>
+      <td>98.1</td>
+      <td>98.4</td>
+    </tr>
+    <tr>
+      <td>ProxyAnchor + Metrix/embed</td>
+      <td>70.4</td>
+      <td>81.1</td>
+      <td>87.9</td>
+      <td>88.9</td>
+      <td>93.3</td>
+      <td>96.4</td>
+      <td>80.6</td>
+      <td>91.7</td>
+      <td>96.6</td>
+      <td>91.6</td>
+      <td>98.3</td>
+      <td>98.3</td> 
+    </tr>
+  </tbody>
+</table>
+
 ---
+
+### Common Errors
+If you face any errors, don't hesitate to open an issue. We will highlight them here.
+
+## Acknowledgement
+
+This repository is built using the [Proxy Anchor](https://github.com/tjddus9597/Proxy-Anchor-CVPR2020), [PyTorch Metric Learning](https://github.com/KevinMusgrave/pytorch-metric-learning) and [DML Benchmark](https://github.com/billpsomas/Deep_Metric_Learning_Pytorch).
+
+## License
+This repository is released under the MIT License as found in the [LICENSE](LICENSE) file.
 
 ## Citation
 If you find this repository useful, please consider giving a star :star: and citation:

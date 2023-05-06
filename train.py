@@ -163,3 +163,55 @@ def feature_metrix_contrastive(inputs, target, model, distance, criterion, opt, 
     opt.step()
 
     return loss, losses_per_epoch
+
+def baseline_multisimilarity(inputs, target, model, distance, miner, alpha, beta, base, opt, losses_per_epoch):
+    
+    out = model(inputs)
+    mat = distance(out)
+
+    a1, p, a2, n = miner(out, target)
+
+    pos_exp = distance.margin(mat, base)
+    neg_exp = distance.margin(base, mat)
+
+    pos_mask, neg_mask = torch.zeros_like(mat), torch.zeros_like(mat)
+    pos_mask[a1, p] = 1
+    neg_mask[a2, n] = 1
+
+    pos_loss = (1.0 / alpha) * lmu.logsumexp(
+        alpha * pos_exp, keep_mask=pos_mask.bool(), add_one=True
+    )
+
+    neg_loss = (1.0 / beta) * lmu.logsumexp(
+        beta * neg_exp, keep_mask=neg_mask.bool(), add_one=True
+    )
+
+    loss = torch.mean(pos_loss + neg_loss)
+
+    opt.zero_grad()
+    loss.backward()
+
+    torch.nn.utils.clip_grad_value_(model.parameters(), 10)
+
+    losses_per_epoch.append(loss.data.cpu().numpy())
+    opt.step()
+
+    return loss, losses_per_epoch
+
+
+def baseline_proxyanchor(inputs, target, model, criterion, opt, losses_per_epoch):
+    out = model(inputs)
+    a1, p, a2, n = lmu.get_all_pairs_indices(target)
+
+    loss = criterion(out, target, (a1, p, a2, n))
+
+    opt.zero_grad()
+    loss.backward()
+
+    torch.nn.utils.clip_grad_value_(criterion.parameters(), 10)
+    torch.nn.utils.clip_grad_value_(model.parameters(), 10)
+
+    losses_per_epoch.append(loss.data.cpu().numpy())
+    opt.step()
+
+    return loss, losses_per_epoch

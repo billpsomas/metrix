@@ -16,6 +16,12 @@ from pytorch_metric_learning.distances.lp_distance import LpDistance
 from pytorch_metric_learning.reducers.avg_non_zero_reducer import AvgNonZeroReducer
 from pytorch_metric_learning.reducers.multiple_reducers import MultipleReducers
 
+from pytorch_metric_learning.losses.multi_similarity_loss import MultiSimilarityLoss
+from pytorch_metric_learning.miners.multi_similarity_miner import  MultiSimilarityMiner
+from pytorch_metric_learning.distances import CosineSimilarity
+
+from pytorch_metric_learning.losses.proxy_anchor_loss import ProxyAnchorLoss
+
 import tqdm
 from tqdm import *
 
@@ -147,7 +153,8 @@ if __name__ == '__main__':
 
     # Set loss function
     if args.loss == 'contrastive':
-        criterion = ContrastiveLoss(neg_margin=0.5)
+        neg_margin=0.5
+        criterion = ContrastiveLoss(neg_margin=neg_margin)
         distance = LpDistance()
 
         if args.mode == 'baseline':
@@ -159,6 +166,24 @@ if __name__ == '__main__':
             reducer_dict_neg = {"neg_loss" : AvgNonZeroReducer()}
             reducer_pos = MultipleReducers(reducer_dict_pos)
             reducer_neg = MultipleReducers(reducer_dict_neg)
+    
+    elif args.loss == 'multisimilarity':
+        alpha = 17.97
+        beta = 75.66
+        base = 0.77
+        criterion = MultiSimilarityLoss(alpha, beta, base)
+        
+        epsilon=0.39
+        miner = MultiSimilarityMiner(epsilon=epsilon)
+        
+        distance = CosineSimilarity()
+
+        if args.mode == 'baseline':
+            reducer_dict = {"loss" : AvgNonZeroReducer()}
+            reducer = MultipleReducers(reducer_dict)
+    
+    elif args.loss == 'proxyanchor':
+        criterion = ProxyAnchorLoss(num_classes = train_dataset.nb_classes(), embedding_size = args.embedding_size).cuda()
 
     # Set parameter groups for optimizer
     param_groups = [
@@ -166,6 +191,9 @@ if __name__ == '__main__':
                     list(set(model.module.parameters()).difference(set(model.module.model.embedding.parameters())))},
         {'params': model.model.embedding.parameters() if args.gpu_id != -1 else model.module.model.embedding.parameters(), 'lr':float(args.lr) * 1},
     ]
+    
+    if args.loss == 'proxyanchor':
+        param_groups.append({'params': criterion.proxies, 'lr':float(args.lr) * 100})
 
     # Set optimizer and scheduler
     opt = torch.optim.Adam(param_groups, lr=float(args.lr), weight_decay = args.weight_decay)
@@ -218,7 +246,13 @@ if __name__ == '__main__':
                     loss, losses_per_epoch = embed_metrix_contrastive(inputs, target, model, distance, criterion, opt, losses_per_epoch, reducer_pos, reducer_neg)
                 elif args.mode == 'feature':
                     loss, losses_per_epoch = feature_metrix_contrastive(inputs, target, model, distance, criterion, opt, losses_per_epoch, reducer_pos, reducer_neg, args.alpha)
-
+            elif args.loss == 'multisimilarity':
+                if args.mode == 'baseline':
+                    loss, losses_per_epoch = baseline_multisimilarity(inputs, target, model, distance, miner, alpha, beta, base, opt, losses_per_epoch)
+            elif args.loss == 'proxyanchor':
+                if args.mode == 'baseline':
+                    loss, losses_per_epoch = baseline_proxyanchor(inputs, target, model, criterion, opt, losses_per_epoch)
+            
             pbar.set_description(
             'Train Epoch: {} [{}/{} ({:.0f}%)] Loss: {:.6f}'.format(
                 epoch, batch_idx + 1, len(train_loader),
