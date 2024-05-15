@@ -8,7 +8,7 @@ import PIL.Image
 
 class Inshop_Dataset(torch.utils.data.Dataset):
     def __init__(self, root, mode, transform = None):
-        self.root = root + '/Inshop_Clothes'
+        self.root = os.path.join(root, 'Inshop_Clothes')
         self.mode = mode
         self.transform = transform
         self.train_ys, self.train_im_paths = [], []

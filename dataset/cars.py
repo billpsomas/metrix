@@ -3,7 +3,7 @@ import scipy.io
 
 class Cars(BaseDataset):
     def __init__(self, root, mode, transform = None):
-        self.root = root + '/cars196'
+        self.root = os.path.join(root, 'cars196')
         self.mode = mode
         self.transform = transform
         if self.mode == 'train':

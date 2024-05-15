@@ -2,7 +2,7 @@ from .base import *
 
 class SOP(BaseDataset):
     def __init__(self, root, mode, transform = None):
-        self.root = root + '/Stanford_Online_Products'
+        self.root = os.path.join(root, 'Stanford_Online_Products')
         self.mode = mode
         self.transform = transform
         if self.mode == 'train':

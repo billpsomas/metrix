@@ -2,7 +2,7 @@ from .base import *
 
 class CUBirds(BaseDataset):
     def __init__(self, root, mode, transform = None):
-        self.root = root + '/CUB_200_2011'
+        self.root = os.path.join(root, 'CUB_200_2011')
         self.mode = mode
         self.transform = transform
         if self.mode == 'train':
@@ -12,8 +12,7 @@ class CUBirds(BaseDataset):
         
         BaseDataset.__init__(self, self.root, self.mode, self.transform)
         index = 0
-        for i in torchvision.datasets.ImageFolder(root = 
-                os.path.join(self.root, 'images')).imgs:
+        for i in torchvision.datasets.ImageFolder(root = os.path.join(self.root, 'images')).imgs:
             # i[1]: label, i[0]: root
             y = i[1]
             # fn needed for removing non-images starting with `._`
